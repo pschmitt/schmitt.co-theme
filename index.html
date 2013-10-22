@@ -21,22 +21,50 @@
 		<div class="inner clearfix">
 			<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
 			<ul class="nav">
-				{% for page in pages %}
-				<li><a href="{{ page.url }}">{{ page.title }}</a></li>
-				{% endfor %}
+                {% for page in pages %}
+                    {% if page.title == "About" or page.title == "Snippets" %}
+                        <!-- <li><a href="sub/about">About</a></li> -->
+                        <!-- <li><a href="sub/snippets">Snippets</a></li> -->
+                        <a href="{{ page.url }}">{{ page.title }}</a>
+                    {% endif %}
+                {% endfor %}
 			</ul>
 		</div>
 	</header>
 
-	<section id="content">
+    <section id="content">
+    <div id="posts">
 		<div class="inner">
-			{{ content }}
-		</div>
-	</section>
-	
+    {% if is_front_page %} <!-- Front page lists all blog posts -->
+       
+    {% for page in pages %}
+        {% if page.date %} <!-- Note we check for Date field (posts) here -->
+        <div class="post">
+            <h3><a href="{{ page.url }}">{{ page.title }}</a></h3>
+            <p class="meta">{{ page.date_formatted }}</p>
+            <p class="excerpt">{{ page.excerpt }}</p>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    {% else %} <!-- Single page shows individual blog post -->
+
+    <div class="post">
+        {% if meta.title %}<h2>{{ meta.title }}</h2>{% endif %}
+        <p class="meta">{{ meta.date_formatted }}</p>
+        {{ content }}
+    </div>
+
+    {% endif %}  
+        </div>
+    </div>
+    </section>
+    
 	<footer id="footer">
 		<div class="inner">
             Powered by <a href="http://pico.dev7studios.com">Pico</a>
+            - 
+            Get the Source code <a href="https://github.com/pschmitt/schmitt.co">@GitHub</a>
 		</div>
 	</footer>
     
