@@ -59,7 +59,7 @@
         {% if meta.title and meta.title != "About" %}<h2>{{ meta.title }}</h2>{% endif %}
         <div class="tags"> <!-- display single page tags with proper urls -->
             {% for tag in meta.tags %}
-                <a href="{{ base_url }}tag/{{ tag }}">#{{ tag }}</a>
+                <a href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>
             {% endfor %}
         </div>
         {% if page.date %}<p class="meta">{{ meta.date_formatted }}</p>{% endif %}
